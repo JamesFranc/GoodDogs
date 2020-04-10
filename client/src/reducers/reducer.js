@@ -1,4 +1,5 @@
 import { GET_BREEDS, GET_BREED, GET_FAVORITES, GET_FAVORITE, FAVORITE, UNFAVORITE } from '../actions/action-types/dog-actions'
+import { bindActionCreators } from 'redux';
 
 const initState = {
     breeds: [],
@@ -7,14 +8,19 @@ const initState = {
 
 const reducer = (state = initState, action) => {
     if (action.type === GET_BREEDS) {
-        console.log(action);
+        
+        action.breeds.forEach(breed => {
+            breed.image = breed.images[Math.floor(Math.random() * breed.images.length)]; 
+        })
         return {
             ...state,
             breeds: [...action.breeds]
         }
     }
     if (action.type === GET_FAVORITES) {
-        console.log(action);
+        action.favorites.forEach(favorite => {
+            favorite.breed.image = favorite.breed.images[Math.floor(Math.random() * favorite.breed.images.length)]; 
+        })
         return {
             ...state,
             favorites: [...action.favorites]

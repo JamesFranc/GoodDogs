@@ -47,7 +47,7 @@ export const getFavorites = () => {
             .then(res => {
                 dispatch({
                     type: GET_FAVORITES,
-                    favorites: res.data
+                    favorites: [...res.data]
                 }) 
             })
             .catch(err => {
