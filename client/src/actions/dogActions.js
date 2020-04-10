@@ -1,7 +1,7 @@
 import { GET_BREEDS, GET_BREED, GET_FAVORITES, GET_FAVORITE, FAVORITE, UNFAVORITE } from './action-types/dog-actions'
 import axios from 'axios';
 
-export const getBreed = () => {
+export const getBreeds = () => {
     //On successful axios call get all breeds
         return dispatch => {
         axios
@@ -9,7 +9,7 @@ export const getBreed = () => {
             .then(res => {
                 dispatch({
                     type: GET_BREEDS,
-                    breeds: res
+                    breeds: res.data
                 }) 
             })
             .catch(err => {
@@ -30,7 +30,7 @@ export const getBreed = (id) => {
             .then(res => {
                 dispatch({
                     type: GET_BREED,
-                    breed: res
+                    breed: res.data
                 }) 
             })
             .catch(err => {
@@ -47,7 +47,7 @@ export const getFavorites = () => {
             .then(res => {
                 dispatch({
                     type: GET_FAVORITES,
-                    favorites: res
+                    favorites: res.data
                 }) 
             })
             .catch(err => {
@@ -68,8 +68,7 @@ export const getFavoriteById = (id) => {
             .then(res => {
                 dispatch({
                     type: GET_FAVORITE,
-                    id: res.id,
-                    breed: res.breed
+                    breed: res.data
                 }) 
             })
             .catch(err => {
@@ -90,8 +89,7 @@ export const favoriteBreed = (id) => {
             .then(res => {
                 dispatch({
                     type: FAVORITE,
-                    id: res.id,
-                    breed: res.breed
+                    breed: res.data
                 }) 
             })
             .catch(err => {

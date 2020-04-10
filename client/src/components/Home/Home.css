@@ -1,0 +1,9 @@
+.card-image > img {
+    width: 250px;
+    object-fit: cover;
+}
+
+.card.horizontal.small > .card-image > img {
+    object-fit: cover;
+    width: 250px;
+}
