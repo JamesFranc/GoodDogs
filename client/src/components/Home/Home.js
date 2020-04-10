@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getBreeds, getBreed, getFavorites, getFavoriteById, favoriteBreed, unfavoriteBreed } from '../../actions/dogActions';
+import { getBreeds, getBreed, getFavorites, favoriteBreed, unfavoriteBreed } from '../../actions/dogActions';
 import './Home.css';
 class Home extends Component {
     componentDidMount() {
@@ -29,9 +29,9 @@ class Home extends Component {
             }) 
         return(
             <div className="container">
-                <h3 className="center">Good Dogs</h3>
-                <div>
-                    <Link to="/favorites" className="waves-effect waves-light btn-large">Favorites</Link>
+                <h3 className="center">All Dogs</h3>
+                <div className="row right-align">
+                    <Link to="/favorites" className="waves-effect waves-light btn-large right-align">Favorites</Link>
                 </div>
                     <div className="row center-cols center-align">
                         { breedList }

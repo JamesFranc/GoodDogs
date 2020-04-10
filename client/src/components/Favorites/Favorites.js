@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getBreeds, getBreed, getFavorites, getFavoriteById, favoriteBreed, unfavoriteBreed } from '../../actions/dogActions';
+import { getBreeds, getBreed, getFavorites, favoriteBreed, unfavoriteBreed } from '../../actions/dogActions';
 // import './Favorites.css';
 class Favorites extends Component {
     componentDidMount() {
         this.props.getFavorites();
     }
     render (){
-        console.log(this.props);
         let favoriteList = this.props.favorites.map(favorite => {
-            console.log(favorite.breed)
                 return(
-                    <div className="col s12" key={favorite.breed.id}>
+                    <div className="col s6 m4" key={favorite.breed.id}>
                         <Link to={"/details/"+favorite.breed.id}>
-                            <div className="card small horizontal hoverable">
+                            <div className="card small hoverable">
                                 <div className="card-image">
                                     <img className="responsive-img" src={favorite.breed.image} alt={"Image of " + favorite.breed.name}></img>
                                 </div>
                                 <div className="valign-wrapper col s8">
-                                    <div className="card-content col s12">
-                                        <h3 className="truncate center">{favorite.breed.name}</h3>
+                                    <div className="card-content center col s12">
+                                        <p className="truncate center">{favorite.breed.name}</p>
                                     </div>
 
                                 </div>
@@ -31,7 +29,7 @@ class Favorites extends Component {
             }) 
         return(
             <div className="container">
-                <h3 className="center">Good Dogs</h3>
+                <h3 className="center">Favorite Dogs</h3>
                     <div className="row center-cols center-align">
                         { favoriteList }
                     </div>

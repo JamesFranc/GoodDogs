@@ -1,4 +1,4 @@
-import { GET_BREEDS, GET_BREED, GET_FAVORITES, GET_FAVORITE, FAVORITE, UNFAVORITE } from './action-types/dog-actions'
+import { GET_BREEDS, GET_BREED, GET_FAVORITES, ADD_FAVORITE, REMOVE_FAVORITE } from './action-types/dog-actions'
 import axios from 'axios';
 
 export const getBreeds = () => {
@@ -22,11 +22,7 @@ export const getBreed = (id) => {
     //Get a specific breed
         return dispatch => {
         axios
-            .get('/breed/',{
-                params: {
-                    id: id
-                }
-            })
+            .get('/breeds/' + id)
             .then(res => {
                 dispatch({
                     type: GET_BREED,
@@ -56,40 +52,15 @@ export const getFavorites = () => {
         }
 }
 
-export const getFavoriteById = (id) => {
-    // Get favorite breed by id
-    return dispatch => {
-        axios
-            .put('/favorites', {
-                params: {
-                    id: id
-                }
-            })
-            .then(res => {
-                dispatch({
-                    type: GET_FAVORITE,
-                    breed: res.data
-                }) 
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
-        }
-}
-
 export const favoriteBreed = (id) => {
     // Favorite a specific breed
     return dispatch => {
         axios
-            .post('/favorites/', {
-                params: {
-                    id: id
-                }
-            })
+            .post('/favorites/add', { breed_id: id })
             .then(res => {
                 dispatch({
-                    type: FAVORITE,
-                    breed: res.data
+                    type: ADD_FAVORITE,
+                    id: id
                 }) 
             })
             .catch(err => {
@@ -102,14 +73,10 @@ export const unfavoriteBreed = (id) => {
     //Remove a favorite breed
     return dispatch => {
         axios
-            .delete('/favorites', {
-                params: {
-                    id: id
-                }
-            })
+            .delete('/favorites/' + id)
             .then(res => {
                 dispatch({
-                    type: FAVORITE,
+                    type: REMOVE_FAVORITE,
                     id: id
                 }) 
             })

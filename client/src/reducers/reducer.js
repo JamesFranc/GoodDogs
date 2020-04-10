@@ -1,9 +1,9 @@
-import { GET_BREEDS, GET_BREED, GET_FAVORITES, GET_FAVORITE, FAVORITE, UNFAVORITE } from '../actions/action-types/dog-actions'
-import { bindActionCreators } from 'redux';
+import { GET_BREEDS, GET_BREED, GET_FAVORITES, ADD_FAVORITE, REMOVE_FAVORITE } from '../actions/action-types/dog-actions'
 
 const initState = {
     breeds: [],
-    favorites: []
+    favorites: [],
+    breed: undefined
 }
 
 const reducer = (state = initState, action) => {
@@ -26,64 +26,29 @@ const reducer = (state = initState, action) => {
             favorites: [...action.favorites]
         }
     }
-    // if (action.type === ADD_ITEM) {
-    //     let addedItem = state.items.find(item => item.item_id === action.id);
-    //     let itemInCart = state.itemsInCart.find(item => action.id === item.item_id);
-    //     if (itemInCart) {
-    //         state.itemsInCart.forEach(item => {
-    //             if (item.item_id === itemInCart.item_id) {
-    //                 item.quantity +=1;
-    //             }
-    //         })
-    //         return {
-    //             ...state,
-    //             itemsInCart: [...state.itemsInCart],
-    //             total: (+state.total + +addedItem.price).toFixed(2)
-    //         }
-    //     } 
-    //     else {
-    //         addedItem.quantity = 1;
-    //         let newTotal = (+state.total + addedItem.price).toFixed(2);
-
-    //         return {
-    //             ...state,
-    //             itemsInCart: [...state.itemsInCart, addedItem],
-    //             total: (+newTotal).toFixed(2)
-    //         }
-    //     }
-    // }
-    // if (action.type === REMOVE_ITEM) {
-    //     let itemToRemove = state.itemsInCart.find(item => action.id === item.item_id)
-    //     let newItems = state.itemsInCart.filter(item => action.id !== item.item_id)
-    //     let newTotal = (+state.total - (itemToRemove.price * itemToRemove.quantity)).toFixed(2);
-
-    //     return {
-    //         ...state,
-    //         itemsInCart: newItems,
-    //         total: (+newTotal).toFixed(2)
-    //     }
-    // }
-    // if (action.type === SUB_QUANTITY) {  
-    //     let reducedItem = state.itemsInCart.find(item => item.item_id === action.id);
-    //     if (reducedItem.quantity === 1) {
-    //         let newItems = state.itemsInCart.filter(item => item.item_id !== action.id)
-    //         let newTotal = (+state.total - reducedItem.price).toFixed(2);
-    //         return {
-    //             ...state,
-    //             itemsInCart: newItems,
-    //             total: (+newTotal).toFixed(2)
-    //         }
-    //     }
-    //     else {
-    //         reducedItem.quantity -= 1
-    //         let newTotal = (+state.total - reducedItem.price).toFixed(2);
-    //         return {
-    //             ...state,
-    //             itemsInCart: [...state.itemsInCart],
-    //             total: (+newTotal).toFixed(2)
-    //         }
-    //     }
-    // }
+    if (action.type === GET_BREED) {
+        action.breed.image = action.breed.images[Math.floor(Math.random() * action.breed.images.length)]; 
+        return {
+            ...state,
+            breed: action.breed
+        }
+    }
+    if (action.type === ADD_FAVORITE) {
+        const newFavorite = state.breeds.find(breed => breed.id === action.id);
+        return {
+            ...state,
+            breed: state.breed,
+            favorites: [...state.favorites, {breed:newFavorite, id:action.id}]
+        }
+    }
+    if (action.type === REMOVE_FAVORITE) {
+        const filteredFavorites = state.favorites.filter(favorite => favorite.id !== action.id);
+        return {
+            ...state,
+            breed: state.breed,
+            favorites: filteredFavorites
+        }
+    }
         
     return state;
 }
